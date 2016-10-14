@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 /***
@@ -102,7 +103,9 @@ public class CSVData {
 	 */
 	public double[] getColumn(int columnIndex) {
 		double[] output = new double[data.length];
-		
+		for (int i = 0; i < data.length; i++) {
+			output[i] = data[i][columnIndex];
+		}
 		
 		return output;
 	}
