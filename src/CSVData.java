@@ -12,8 +12,9 @@ import java.util.Scanner;
 public class CSVData {
 	private double[][] data;
 	private String[] columnNames;
-	int numRows;
-
+	private int numRows;
+	private String filePathToCSV;
+	
 	public static CSVData readCSVfile(String filename, int numLinestToIgnore, String[] columnNames) {
 		return null;
 	}
@@ -106,7 +107,6 @@ public class CSVData {
 		for (int i = 0; i < data.length; i++) {
 			output[i] = data[i][columnIndex];
 		}
-		
 		return output;
 	}
 
