@@ -193,7 +193,7 @@ public class CSVData {
 	 * @param newValue
 	 */
 	public void SetValues(int rowIndex, int columnIndex, double newValue) {
-
+		data[rowIndex][columnIndex] = newValue;
 	}
 
 	/***
