@@ -1,12 +1,13 @@
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /***
  * Class to read and write comma numerical CSV files and allow easy access
  *
- * @author AviNozik 
+ * @author AviNozik
  *
  */
 public class CSVData {
@@ -14,7 +15,7 @@ public class CSVData {
 	private String[] columnNames;
 	private int numRows;
 	private String filePathToCSV;
-	
+
 	public static CSVData readCSVfile(String filename, int numLinestToIgnore, String[] columnNames) {
 		return null;
 	}
@@ -79,10 +80,10 @@ public class CSVData {
 	 *
 	 * @param data
 	 *            the data input
-	 * @return the dta converted to an array
+	 * @return the data converted to an array
 	 */
 	public double[][] convertToArray(double[][] data) {
-		return null;
+		return data;
 	}
 
 	/***
@@ -93,8 +94,13 @@ public class CSVData {
 	 * @return the row
 	 */
 	public double[] getRow(int rowIndex) {
-		return null;
+		double[] output = new double[data[0].length];// amount of columns
+		for (int col = 0; col < data.length; col++) {
+			output[col] = data[rowIndex][col];
+		}
+		return output;
 	}
+
 	/***
 	 * gets a column
 	 *
@@ -118,7 +124,20 @@ public class CSVData {
 	 * @return the column
 	 */
 	public double[] getColumn(String name) {
-		return null;
+		double[] output = new double[data[0].length];
+		String[] titles = getTitles();
+		int index = 0;
+		for (int i = 0; i < titles.length; i++) {
+			if (titles[i].equals(name)) {
+				index = i;
+			}
+		}
+		int counter = 0;
+		for (int row = 0; row < data.length; row++) {
+			output[counter] = data[row][index];
+			counter++;
+		}
+		return output;
 	}
 
 	/***
@@ -131,7 +150,15 @@ public class CSVData {
 	 * @return the rows
 	 */
 	public double[][] getMultipleRows(int startRowIndex, int endRowIndex) {
-		return null;
+		double[][] output = new double[endRowIndex-startRowIndex][data[0].length];
+		for (int row = startRowIndex; row < endRowIndex; row++) {//all the rows
+			int counter = 0; 
+			for (int col = 0; col < data[0].length; col++) {
+				output[counter][col] = data[row][col];
+			}
+			counter++;
+		}
+		return output;
 	}
 
 	/***
@@ -141,8 +168,14 @@ public class CSVData {
 	 *            an array of row indexes
 	 * @return the rows
 	 */
-	public double[][] getMultipleRows(int[] rowIndexes) {
-		return null;
+	public double[][] getMultipleRows(int[] rowIndices) {
+		double[][] output = new double[rowIndices.length][data[0].length];
+		for (int i = 0; i < rowIndices.length; i++) {// through diff row indexs
+			for (int j = 0; j < data[0].length; j++) {
+				output[i][j] = data[rowIndices[i]][j];
+			}
+		}
+		return output;
 	}
 
 	/***
@@ -155,7 +188,15 @@ public class CSVData {
 	 * @return the columns
 	 */
 	public double[][] getMultipleColumns(int startColumnIndex, int endColumnIndex) {
-		return null;
+		double[][] output = new double[data.length][endColumnIndex - startColumnIndex];
+		for (int row = 0; row < data.length; row++) {
+			for (int col = startColumnIndex; col < endColumnIndex; col++) {
+				int counter = 0;
+				output[row][counter] = data[row][col];
+				counter++;
+			}
+		}
+		return output;
 	}
 
 	/***
@@ -165,10 +206,16 @@ public class CSVData {
 	 *            an array of column indexes
 	 * @return the columns
 	 */
-	public double[][] getMultipleColumns(int[] ColumnIndexes) {
-		return null;
+	public double[][] getMultipleColumns(int[] columnIndices) {
+		double[][] output = new double[data.length][columnIndices.length];
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < columnIndices.length; j++) {
+				output[i][j] = data[i][columnIndices[j]];//ok
+			}
+		}
+		return output;
 	}
-
+	
 	/***
 	 * gets multiple columns
 	 *
@@ -186,7 +233,13 @@ public class CSVData {
 	 * @return the titles
 	 */
 	public String[] getTitles() {
-		return null;
+		String[] output = new String[data[0].length];
+		for (int i = 0; i < output.length; i++) {
+			double x = data[0][i];
+			String y = Double.toString(x);
+			output[i] = y;
+		}
+		return output;
 	}
 
 	/***
